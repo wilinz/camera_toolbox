@@ -1,7 +1,7 @@
 class HandshakeException implements Exception {
   final String message;
 
-  HandshakeException([this.message = '用户新系统 ID 为空']);
+  HandshakeException([this.message = '']);
 
   @override
   String toString() => 'HandshakeException: $message';
