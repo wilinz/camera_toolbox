@@ -43,6 +43,7 @@ dependencies:
       url: https://github.com/wilinz/FlutterToast.git
   get: ^4.7.2
   geolocator: ^13.0.2
+  logger: ^2.5.0
 
 dev_dependencies:
   flutter_test:
