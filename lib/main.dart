@@ -10,6 +10,7 @@ class CameraBleApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       builder: FToastBuilder(),
+      debugShowCheckedModeBanner: false,
       title: 'Camera Toolbox',
       theme: ThemeData.from(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink.shade400)),
