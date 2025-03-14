@@ -11,9 +11,9 @@ import '../../common/ble_permissions.dart';
 
 class BLEScanController extends GetxController {
   final isScanning = false.obs;
-  final scanResults = [].obs;
+  final scanResults = <ScanResult>[].obs;
   BluetoothDevice? connectedDevice;
-  final services = [].obs;
+  final services = <BluetoothService>[].obs;
 
   StreamSubscription<List<ScanResult>>? _scanSubscription;
 
@@ -72,6 +72,8 @@ class BLEScanController extends GetxController {
       toastFailure0("连接异常：$e");
     }
   }
+
+
 
   @override
   void dispose() {

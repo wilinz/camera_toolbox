@@ -45,6 +45,9 @@ dependencies:
   geolocator: ^13.0.2
   logger: ^2.5.0
   device_info_plus: ^11.3.0
+  path_provider: ^2.1.5
+  get_storage: ^2.1.1
+  path: ^1.9.0
 
 dev_dependencies:
   flutter_test:
