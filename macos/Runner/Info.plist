@@ -28,5 +28,7 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+    <string>此应用程序需要访问蓝牙以连接外部设备</string>
 </dict>
 </plist>

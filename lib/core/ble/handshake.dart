@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:collection/collection.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
@@ -69,7 +70,7 @@ Future<void> performHandshake({
     logger.d("握手相关的 characteristic 未找到！");
     return;
   }
-
+  final completer = Completer();
   try {
     // 发送握手启动数据：0x01 + device name
     List<int> deviceNameBytes = deviceName.codeUnits;
@@ -80,6 +81,7 @@ Future<void> performHandshake({
 
     // 开启通知并监听握手结果
     await handshakeStartChar.setNotifyValue(true);
+
     handshakeStartChar.lastValueStream.listen((value) async {
       if (value.isNotEmpty && value[0] == 0x02) {
         logger.d("收到握手确认（0x02）通知");
@@ -109,5 +111,7 @@ Future<void> performHandshake({
     });
   } catch (e) {
     logger.e("握手过程中出现异常：$e");
+    completer.completeError(e);
   }
+  await completer.future;
 }
