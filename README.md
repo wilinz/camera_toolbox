@@ -1,7 +1,7 @@
 # **佳能相机控制 APP**
 
 ## 截图
-![1.png](readme/1.png)
+<img src="readme/1.png" alt="1.png" style="zoom:33%;" />
 
 ## **协议说明**
 
