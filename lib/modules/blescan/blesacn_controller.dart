@@ -78,7 +78,13 @@ class BLEScanController extends GetxController {
   }
 
   Future<void> connectToDevice(BluetoothDevice device) async {
-    await (await BLEDeviceManager.instance).connectToDevice(device);
+    try {
+      await (await BLEDeviceManager.instance).connectToDevice(device);
+      toastSuccess0("连接成功");
+    } catch (e) {
+      print(e);
+      toastFailure0("连接失败");
+    }
   }
 
 }

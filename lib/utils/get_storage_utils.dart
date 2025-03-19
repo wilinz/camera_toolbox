@@ -11,5 +11,7 @@ Future<GetStorage> newAppSupportGetStorage({String container = "default"}) async
     supportDirectory.create(recursive: true);
   }
 
-  return GetStorage(container, file.path);
+  final gs = GetStorage(container, file.path);
+  await gs.initStorage;
+  return gs;
 }
