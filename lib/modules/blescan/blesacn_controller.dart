@@ -50,10 +50,10 @@ class BLEScanController extends GetxController {
 
     try {
       await FlutterBluePlus.startScan(
-          timeout: Duration(seconds: 10),
+          timeout: Duration(seconds: 60),
           removeIfGone: Duration(seconds: 10),
           continuousUpdates: true,
-          withKeywords: ["EOS"]);
+          );
       _scanSubscription = FlutterBluePlus.scanResults.listen((results) {
         scanResults.value = results.sortedBy((e) {
           return e.device.platformName.isNotEmpty ? e.device.platformName : "z";

@@ -1,4 +1,5 @@
 import 'package:camera_toolbox/core/ble/features/camera_controller.dart';
+import 'package:camera_toolbox/core/ble/features/wifi_controller.dart';
 import 'package:camera_toolbox/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
@@ -72,8 +73,24 @@ class HomeController extends GetxController {
       return;
     }
     final ble = await BLEDeviceManager.instance;
+    final deviceAndServices = await ble.getConnectedDevice(currentDevice.value!.remoteId);
     final controller = BLECameraController(
-        device: await ble.getConnectedDevice(currentDevice.value!.remoteId));
+        device: deviceAndServices,
+    );
     await controller.shoot();
   }
+
+  strrtWIFI() async {
+    if (currentDevice.value == null) {
+      toastFailure0("请先点击选择设备");
+      return;
+    }
+    final ble = await BLEDeviceManager.instance;
+    final deviceAndServices = await ble.getConnectedDevice(currentDevice.value!.remoteId);
+    final controller = BLEWiFiController(
+      device: deviceAndServices,
+    );
+    await controller.setupWiFiAP(ssid: "Canon-EOS-R8", password:"asdfghjkl");
+  }
+
 }

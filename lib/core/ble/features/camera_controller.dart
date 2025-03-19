@@ -3,12 +3,11 @@ import 'package:collection/collection.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 class BLECameraController extends BLEFeature {
-  final BluetoothDevice device;
 
   static const String cameraServiceUUID = "00030000-0000-1000-0000-d8492fffa821";
   static const String shootingCharacteristics = "00030030-0000-1000-0000-d8492fffa821";
 
-  BLECameraController({required this.device});
+  BLECameraController({required super.device});
 
   shoot() async {
     final services = await device.discoverServices();

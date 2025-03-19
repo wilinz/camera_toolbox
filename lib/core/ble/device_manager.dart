@@ -1,7 +1,10 @@
+import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:camera_toolbox/common/logger.dart';
 import 'package:camera_toolbox/utils/get_storage_utils.dart';
+import 'package:camera_toolbox/utils/string.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
@@ -30,11 +33,9 @@ class BLEDeviceManager {
 
   List<BluetoothDevice>? get connectedDevice => _connectedDevices;
 
-  Map<String, List<BluetoothService>> get services => _services;
-
   Future<BluetoothDevice> getConnectedDevice(String remoteId) async {
     final device = BluetoothDevice.fromId(remoteId);
-    if(!device.isConnected) {
+    if (device.isDisconnected) {
       await connectToDevice(device);
     }
     return device;
@@ -67,38 +68,52 @@ class BLEDeviceManager {
     }
   }
 
+
+// 假设 device.connectionState 是一个 Stream<BluetoothConnectionState>
+  Future<void> waitForConnection(BluetoothDevice device, {Duration timeout = const Duration(seconds: 5)}) async {
+    try {
+      await device.connectionState
+          .firstWhere((state) => state == BluetoothConnectionState.connected)
+          .timeout(timeout);
+      print('连接成功');
+    } on TimeoutException {
+      print('连接超时');
+      // 你可以选择抛出异常或返回
+      // throw Exception('连接设备超时');
+    }
+  }
+
+
   /// 手动连接 & 保存设备
   Future<void> connectToDevice(BluetoothDevice device,
       {bool autoReconnect = false}) async {
     logger.d(
         "${autoReconnect ? "自动" : "手动"}尝试连接设备：${device.platformName.isNotEmpty ? device.platformName : '未知设备'} (${device.remoteId})");
-    await device.connect(autoConnect: true, mtu: null);
-    await device.connectionState
-        .firstWhere((state) => state == BluetoothConnectionState.connected);
-    if (!kIsWeb && Platform.isAndroid) {
-      await device.requestMtu(512);
+    if (device.isDisconnected) {
+      logger.d("正在重新连接");
+      await device.disconnect();
+      await device.connect(autoConnect: true, mtu: null);
+
+      await waitForConnection(device);
+
+      if (!kIsWeb && Platform.isAndroid) {
+        await device.requestMtu(512);
+      }
     }
-    final services = await _discoverServices(device);
 
-    _services[device.remoteId.str] = services;
-    logger.d("services: $services");
-
+    final services = await device.discoverServices();
     String deviceName = await getDeviceName();
 
     await performHandshake(
-        services: services,
-        deviceName: deviceName,
-        deviceId: "weyhrjmyurggikvb".codeUnits);
+      services: _services[device.remoteId.str]!,
+      deviceName: deviceName,
+      deviceId: utf8.encode(
+        generateRandomString(16),
+      ),
+    );
     _connectedDevices.add(device);
     _saveDevice(device);
     logger.d("连接成功，发现 ${services.length} 个服务");
-  }
-
-  /// 发现服务并保存
-  Future<List<BluetoothService>> _discoverServices(
-      BluetoothDevice device) async {
-    List<BluetoothService> services = await device.discoverServices();
-    return services;
   }
 
   /// 保存设备（自定义类型）
