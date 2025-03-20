@@ -29,7 +29,6 @@ class BLEDeviceManager {
   static BLEDeviceManager? _instance;
 
   final _connectedDevices = <BluetoothDevice>[];
-  final _services = <String, List<BluetoothService>>{};
 
   List<BluetoothDevice>? get connectedDevice => _connectedDevices;
 
@@ -70,7 +69,7 @@ class BLEDeviceManager {
 
 
 // 假设 device.connectionState 是一个 Stream<BluetoothConnectionState>
-  Future<void> waitForConnection(BluetoothDevice device, {Duration timeout = const Duration(seconds: 5)}) async {
+  Future<void> waitForConnection(BluetoothDevice device, {Duration timeout = const Duration(seconds: 10)}) async {
     try {
       await device.connectionState
           .firstWhere((state) => state == BluetoothConnectionState.connected)
@@ -91,10 +90,13 @@ class BLEDeviceManager {
         "${autoReconnect ? "自动" : "手动"}尝试连接设备：${device.platformName.isNotEmpty ? device.platformName : '未知设备'} (${device.remoteId})");
     if (device.isDisconnected) {
       logger.d("正在重新连接");
-      await device.disconnect();
+      // await device.disconnect();
       await device.connect(autoConnect: true, mtu: null);
 
       await waitForConnection(device);
+      // device.connectionState.listen((it){
+      //   logger.d("connectionState: $it");
+      // });
 
       if (!kIsWeb && Platform.isAndroid) {
         await device.requestMtu(512);
@@ -105,11 +107,12 @@ class BLEDeviceManager {
     String deviceName = await getDeviceName();
 
     await performHandshake(
-      services: _services[device.remoteId.str]!,
+      services: services,
       deviceName: deviceName,
       deviceId: utf8.encode(
         generateRandomString(16),
       ),
+      // deviceType: (Platform.isIOS || Platform.isMacOS) ? DeviceType.ios : DeviceType.android,
     );
     _connectedDevices.add(device);
     _saveDevice(device);
