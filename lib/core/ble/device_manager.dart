@@ -35,7 +35,7 @@ class BLEDeviceManager {
   Future<BluetoothDevice> getConnectedDevice(String remoteId) async {
     final device = BluetoothDevice.fromId(remoteId);
     if (device.isDisconnected) {
-      await device.connect();
+      await connectToDevice(device, autoReconnect: false);
     }
     return device;
   }
@@ -91,9 +91,11 @@ class BLEDeviceManager {
     if (device.isDisconnected) {
       logger.d("正在重新连接");
       // await device.disconnect();
-      await device.connect(autoConnect: true, mtu: null);
+      await device.connect(autoConnect: autoReconnect, mtu: autoReconnect ? null : 512);
 
-      await waitForConnection(device);
+      if(autoReconnect) {
+        await waitForConnection(device);
+      }
       // device.connectionState.listen((it){
       //   logger.d("connectionState: $it");
       // });
