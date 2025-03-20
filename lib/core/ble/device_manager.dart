@@ -35,7 +35,7 @@ class BLEDeviceManager {
   Future<BluetoothDevice> getConnectedDevice(String remoteId) async {
     final device = BluetoothDevice.fromId(remoteId);
     if (device.isDisconnected) {
-      await connectToDevice(device);
+      await device.connect();
     }
     return device;
   }
