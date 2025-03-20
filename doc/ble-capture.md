@@ -21,23 +21,23 @@ onCharacteristicRead: len: 6 | hex: 31 2e 30 2e 30 00 | utf8: 1.0.0 | status: 0 
 # 读取序列号
 onCharacteristicRead: len: 20 | hex: 30 39 32 30 32 32 30 30 30 31 34 33 00 00 00 00 00 00 00 00 | utf8: 092022000143 | status: 0 | gatt-char: 00002a25-0000-1000-8000-00805f9b34fb | service: 0000180a-0000-1000-8000-00805f9b34fb
 
-# 读取设备状态位 (pairing)
+# 未知
 onCharacteristicRead: len: 1 | hex: 01 | utf8:  | status: 0 | gatt-char: 00010005-0000-1000-0000-d8492fffa821 | service: 00010000-0000-1000-0000-d8492fffa821
 
-# 读取部分设置状态（例：权限或配置）
+# 未知
 onCharacteristicRead: len: 4 | hex: 7f 00 00 00 | utf8:  | status: 0 | gatt-char: 00020001-0000-1000-0000-d8492fffa821 | service: 00020000-0000-1000-0000-d8492fffa821
 
-# 读取开关状态或功能位（推测）
+# 未知
 onCharacteristicRead: len: 3 | hex: 01 01 01 | utf8:  | status: 0 | gatt-char: 00030001-0000-1000-0000-d8492fffa821 | service: 00030000-0000-1000-0000-d8492fffa821
 
-# 读取某功能数据（推测）
+# 未知
 onCharacteristicRead: len: 3 | hex: 03 13 00 | utf8:  | status: 0 | gatt-char: 00040001-0000-1000-0000-d8492fffa821 | service: 00040000-0000-1000-0000-d8492fffa821
 
-# 读取某功能状态（推测）
+# 未知
 onCharacteristicRead: len: 2 | hex: 01 00 | utf8:  | status: 0 | gatt-char: 00040003-0000-1000-0000-d8492fffa821 | service: 00040000-0000-1000-0000-d8492fffa821
 
 ------------------------------------------------
-# gatt-char: 0001000a-0000-1000-0000-d8492fffa821 用于写入设备相关信息
+# gatt-char: 0001000a-0000-1000-0000-d8492fffa821
 
 # 写入 device id
 writeCharacteristic: len: 17 | hex: 03 51 fe a8 ab de 35 42 bf a3 4d e1 b5 dd 54 61 c6 | utf8: Q...5B..M..Ta. | writeType: 2 | gatt-char: 0001000a-0000-1000-0000-d8492fffa821
@@ -50,10 +50,10 @@ writeCharacteristic: len: 2 | hex: 05 02 | utf8:  | writeType: 2 | gatt-char: 
 
 ------------------------------------------------
 
-# 控制指令（推测）
+# 写入 0a 让相机生成 AP 名称和密码
 writeCharacteristic: len: 1 | hex: 0a | utf8:  | writeType: 2 | gatt-char: 00020002-0000-1000-0000-d8492fffa821
 
-# 写入功能相关数据（推测）
+# 未知
 writeCharacteristic: len: 8 | hex: 05 00 00 00 00 00 00 00 | utf8:  | writeType: 2 | gatt-char: 00040002-0000-1000-0000-d8492fffa821
 
 ------------------------------------------------
@@ -66,7 +66,7 @@ onCharacteristicRead: len: 8 | hex: 78 73 58 34 38 53 35 39 | utf8: xsX48S59 | s
 
 ------------------------------------------------
 
-# 读取其他配置信息（可能为网络或状态相关）
+# 未知
 onCharacteristicRead: len: 20 | hex: 16 00 00 00 09 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | utf8: 	 | status: 0 | gatt-char: 00020005-0000-1000-0000-d8492fffa821
 
 ------------------------------------------------
@@ -74,7 +74,7 @@ onCharacteristicRead: len: 20 | hex: 16 00 00 00 09 00 00 00 00 00 00 00 00 00 0
 writeCharacteristic: len: 1 | hex: 01 | utf8:  | writeType: 2 | gatt-char: 0001000a-0000-1000-0000-d8492fffa821
 
 ------------------------------------------------
-# 可能为功能确认或开启指令
+# 未知
 writeCharacteristic: len: 1 | hex: 06 | utf8:  | writeType: 2 | gatt-char: 0001000a-0000-1000-0000-d8492fffa821
 writeCharacteristic: len: 1 | hex: 07 | utf8:  | writeType: 2 | gatt-char: 0001000a-0000-1000-0000-d8492fffa821
 ```
