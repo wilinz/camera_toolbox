@@ -12,16 +12,36 @@ onCharacteristicRead: len: 4 | hex: 7f 00 00 00 | utf8: ?????? | status: 0 | ga
 onCharacteristicRead: len: 3 | hex: 01 01 01 | utf8:  | status: 0 | gatt-char: 00030001-0000-1000-0000-d8492fffa821 | service: 00030000-0000-1000-0000-d8492fffa821
 onCharacteristicRead: len: 3 | hex: 03 13 00 | utf8: ?? | status: 0 | gatt-char: 00040001-0000-1000-0000-d8492fffa821 | service: 00040000-0000-1000-0000-d8492fffa821
 onCharacteristicRead: len: 2 | hex: 01 00 | utf8: ?? | status: 0 | gatt-char: 00040003-0000-1000-0000-d8492fffa821 | service: 00040000-0000-1000-0000-d8492fffa821
+
+------------------------------------------------
+gatt-char: 0001000a-0000-1000-0000-d8492fffa821:
+
+write device id
 writeCharacteristic: len: 17 | hex: 03 51 fe a8 ab de 35 42 bf a3 4d e1 b5 dd 54 61 c6 | utf8: Q����5B��M��Ta� | writeType: 2 | gatt-char: 0001000a-0000-1000-0000-d8492fffa821 | service: 00010000-0000-1000-0000-d8492fffa821
+
+write device name
 writeCharacteristic: len: 11 | hex: 04 32 32 30 32 31 32 31 31 52 43 | utf8: 22021211RC | writeType: 2 | gatt-char: 0001000a-0000-1000-0000-d8492fffa821 | service: 00010000-0000-1000-0000-d8492fffa821
+
+write device type
 writeCharacteristic: len: 2 | hex: 05 02 | utf8:  | writeType: 2 | gatt-char: 0001000a-0000-1000-0000-d8492fffa821 | service: 00010000-0000-1000-0000-d8492fffa821
+
+------------------------------------------------
+
 writeCharacteristic: len: 1 | hex: 0a | utf8: 
                                                                                                      | writeType: 2 | gatt-char: 00020002-0000-1000-0000-d8492fffa821 | service: 00020000-0000-1000-0000-d8492fffa821
 writeCharacteristic: len: 8 | hex: 05 00 00 00 00 00 00 00 | utf8: ?????????????? | writeType: 2 | gatt-char: 00040002-0000-1000-0000-d8492fffa821 | service: 00040000-0000-1000-0000-d8492fffa821
+
+------------------------------------------------
+read wifi ssid
 onCharacteristicRead: len: 20 | hex: 45 4f 53 52 38 2d 38 35 39 5f 43 61 6e 6f 6e 30 41 00 00 00 | utf8: EOSR8-859_Canon0A?????? | status: 0 | gatt-char: 00020004-0000-1000-0000-d8492fffa821 | service: 00020000-0000-1000-0000-d8492fffa821
+read wifi pass
 onCharacteristicRead: len: 8 | hex: 78 73 58 34 38 53 35 39 | utf8: xsX48S59 | status: 0 | gatt-char: 00020006-0000-1000-0000-d8492fffa821 | service: 00020000-0000-1000-0000-d8492fffa821
+------------------------------------------------
 onCharacteristicRead: len: 20 | hex: 16 00 00 00 09 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 | utf8: ??????	?????????????????????????????? | status: 0 | gatt-char: 00020005-0000-1000-0000-d8492fffa821 | service: 00020000-0000-1000-0000-d8492fffa821
+------------------------------------------------
+complete handshake
 writeCharacteristic: len: 1 | hex: 01 | utf8:  | writeType: 2 | gatt-char: 0001000a-0000-1000-0000-d8492fffa821 | service: 00010000-0000-1000-0000-d8492fffa821
+------------------------------------------------
 writeCharacteristic: len: 1 | hex: 06 | utf8:  | writeType: 2 | gatt-char: 0001000a-0000-1000-0000-d8492fffa821 | service: 00010000-0000-1000-0000-d8492fffa821
 writeCharacteristic: len: 1 | hex: 07 | utf8:  | writeType: 2 | gatt-char: 0001000a-0000-1000-0000-d8492fffa821 | service: 00010000-0000-1000-0000-d8492fffa821
 ```
